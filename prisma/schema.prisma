@@ -12,22 +12,62 @@ generator client {
 }
 
 model Product {
-    id        String      @id @default(cuid())
-    name      String
-    price     Decimal
-    createdAt DateTime @default(now())
-    category  Category    @relation(fields: [categoryId], references: [id])
-    categoryId String
-    url       String
+  productId  String      @id @default(cuid())
+  name       String
+  description String?
+  price      Decimal
+  createdAt  DateTime    @default(now())
+  category   Category?    @relation(fields: [categoryId], references: [categoryId])
+  categoryId String?
+  url        String?
+  OrderItem  OrderItem[]
 
-    @@index([id])
+  @@index([categoryId])
 }
 
 model Category {
-  id String @id @default(cuid())
-  name String
-  createdAt DateTime @default(now())
-  products Product[]
+  categoryId String    @id @default(cuid())
+  name       String
+  createdAt  DateTime  @default(now())
+  products   Product[]
 
-  @@index([id])
+  @@index([categoryId])
 }
+model Order {
+  orderId   String      @id @default(cuid())
+  createdAt DateTime    @default(now())
+  customer  Customer    @relation(fields: [customerId], references: [customerId])
+  customerId String
+  items     OrderItem[]
+  pickupDate DateTime
+  pickupTime String
+
+  @@index([orderId])
+  @@index([customerId])
+}
+
+model OrderItem {
+  order     Order   @relation(fields: [orderId], references: [orderId])
+  orderId   String
+  product   Product @relation(fields: [productId], references: [productId])
+  productId String
+  quantity  Int
+
+  @@id([productId])
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Customer{
+  customerId String @id @default(cuid())
+  firstName String
+  lastName String
+  birthDate DateTime
+  email String
+  phone String
+  createdAt DateTime @default(now())
+  orders Order[]
+
+  @@index([customerId])
+}
+
