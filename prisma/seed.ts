@@ -2,16 +2,17 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function clearAll() {
+async function main() {
+  await prisma.orderItem.deleteMany({});
   await prisma.order.deleteMany({});
   await prisma.product.deleteMany({});
   await prisma.category.deleteMany({});
+  await prisma.customer.deleteMany({});
+
+  await prisma.$queryRaw`alter table \`Order\` auto_increment = 1`;
   await prisma.$queryRaw`alter table Product auto_increment = 1`;
   await prisma.$queryRaw`alter table Category auto_increment = 1`;
-}
-
-async function main() {
-  // Seed data for the Category model
+  await prisma.$queryRaw`alter table Customer auto_increment = 1`;
 
   const categorieNames = [
     'Drinks',
@@ -178,9 +179,102 @@ async function main() {
       );
     }
   }
-}
 
-//clearAll();
+  const mockCustomers = [
+    {
+      firstName: 'John',
+      lastName: 'Doe',
+      birthDate: new Date('1990-01-15T00:00:00Z'),
+      email: 'john.doe@example.com',
+      phone: '123-456-7890',
+    },
+    {
+      firstName: 'Jane',
+      lastName: 'Smith',
+      birthDate: new Date('1985-05-20T00:00:00Z'),
+      email: 'jane.smith@example.com',
+      phone: '987-654-3210',
+    },
+    {
+      firstName: 'Alice',
+      lastName: 'Johnson',
+      birthDate: new Date('1992-08-10T00:00:00Z'),
+      email: 'alice.j@example.com',
+      phone: '555-123-4567',
+    },
+    {
+      firstName: 'Bob',
+      lastName: 'Smith',
+      birthDate: new Date('1988-03-25T00:00:00Z'),
+      email: 'bob.smith@example.com',
+      phone: '555-987-6543',
+    },
+    {
+      firstName: 'Eve',
+      lastName: 'Adams',
+      birthDate: new Date('1995-12-03T00:00:00Z'),
+      email: 'eve.adams@example.com',
+      phone: '555-876-5432',
+    },
+    {
+      firstName: 'David',
+      lastName: 'Williams',
+      birthDate: new Date('1990-06-15T00:00:00Z'),
+      email: 'david.w@example.com',
+      phone: '555-234-5678',
+    },
+  ];
+
+  for (const customer of mockCustomers) {
+    await prisma.customer.create({
+      data: customer,
+    });
+  }
+
+  const customers = await prisma.customer.findMany();
+
+  for (const customer of customers) {
+    for (let i = 0; i < 3; i++) {
+      await prisma.order.create({
+        data: {
+          customer: {
+            connect: { id: customer.id },
+          },
+          pickup: new Date(), // Set your pickup date here
+        },
+      });
+    }
+  }
+
+  const productsIn = await prisma.product.findMany();
+
+  // Define a function to generate a random quantity
+  function getRandomQuantity() {
+    return Math.floor(Math.random() * 4) + 1; // Generates a random quantity between 1 and 4
+  }
+
+  for (const customer of customers) {
+    const orders = await prisma.order.findMany({
+      where: { customerId: customer.id },
+    });
+
+    for (const order of orders) {
+      // Randomly select a product and quantity for this order
+      const randomProduct =
+        productsIn[Math.floor(Math.random() * productsIn.length)];
+      const randomQuantity = getRandomQuantity();
+
+      // Create the OrderItem for this order
+      await prisma.orderItem.create({
+        data: {
+          order: { connect: { id: order.id } },
+          product: { connect: { id: randomProduct.id } },
+          quantity: randomQuantity,
+        },
+      });
+    }
+  }
+}
 main()
   .catch((e) => {
     throw e;

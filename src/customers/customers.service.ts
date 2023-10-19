@@ -10,7 +10,7 @@ export class CustomersService {
     return this.prisma.customer.findMany();
   }
 
-  findOne(id: string) {
+  findOne(id: number) {
     return this.prisma.customer.findUnique({
       where: { id },
     });
@@ -22,14 +22,14 @@ export class CustomersService {
     });
   }
 
-  update(id: string, customer: Customer) {
+  update(id: number, customer: Customer) {
     return this.prisma.customer.update({
       where: { id },
       data: customer,
     });
   }
 
-  remove(id: string) {
+  remove(id: number) {
     return this.prisma.customer.delete({
       where: { id },
     });

@@ -1,5 +1,6 @@
 import { ProductsService } from './products.service';
 import { Product } from '@prisma/client';
+import { ApiTags } from '@nestjs/swagger';
 import {
   Body,
   Delete,
@@ -11,16 +12,17 @@ import {
 } from '@nestjs/common';
 
 @Controller('products')
+@ApiTags('products')
 export class ProductsController {
   constructor(private productService: ProductsService) {}
 
   @Get()
-  async getAllProducts() {
-    return this.productService.getAllProducts();
+  getAllProducts() {
+    return this.productService.getAll();
   }
 
   @Get(':id')
-  async findCategoryById(@Param('id') id: string) {
+  findCategoryById(@Param('id') id: number) {
     return this.productService.findOne(id);
   }
 
@@ -30,12 +32,12 @@ export class ProductsController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() product: Product) {
+  update(@Param('id') id: number, @Body() product: Product) {
     return this.productService.update(id, product);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.productService.remove(id);
   }
 }
