@@ -6,6 +6,8 @@ async function clearAll() {
   await prisma.order.deleteMany({});
   await prisma.product.deleteMany({});
   await prisma.category.deleteMany({});
+  await prisma.$queryRaw`alter table Product auto_increment = 1`;
+  await prisma.$queryRaw`alter table Category auto_increment = 1`;
 }
 
 async function main() {
