@@ -34,20 +34,20 @@ model Category {
   @@index([id])
 }
 model Order {
-  orderId   String      @id @default(cuid())
+  id   String      @id @default(cuid())
   createdAt DateTime    @default(now())
-  customer  Customer    @relation(fields: [customerId], references: [customerId])
+  customer  Customer    @relation(fields: [customerId], references: [id])
   customerId String
   items     OrderItem[]
   pickupDate DateTime
   pickupTime String
 
-  @@index([orderId])
+  @@index([id])
   @@index([customerId])
 }
 
 model OrderItem {
-  order     Order   @relation(fields: [orderId], references: [orderId])
+  order     Order   @relation(fields: [orderId], references: [id])
   orderId   String
   product   Product @relation(fields: [productId], references: [id])
   productId String
@@ -59,7 +59,7 @@ model OrderItem {
 }
 
 model Customer{
-  customerId String @id @default(cuid())
+  id String @id @default(cuid())
   firstName String
   lastName String
   birthDate DateTime
@@ -68,6 +68,6 @@ model Customer{
   createdAt DateTime @default(now())
   orders Order[]
 
-  @@index([customerId])
+  @@index([id])
 }
 
