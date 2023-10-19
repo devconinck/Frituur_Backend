@@ -2,6 +2,12 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+async function clearAll() {
+  await prisma.order.deleteMany({});
+  await prisma.product.deleteMany({});
+  await prisma.category.deleteMany({});
+}
+
 async function main() {
   // Seed data for the Category model
 
@@ -22,16 +28,25 @@ async function main() {
 
   const categories = [];
   for (const name of categorieNames) {
-    categories.push(
-      await prisma.category.create({
-        data: {
-          name: name,
-        },
-      }),
-    );
+    const exists = await prisma.category.findFirst({
+      where: {
+        name: name,
+      },
+    });
+
+    if (exists) {
+      continue;
+    } else {
+      categories.push(
+        await prisma.category.create({
+          data: {
+            name: name,
+          },
+        }),
+      );
+    }
   }
 
-  // Seed data for the Product model
   const productsData = [
     {
       name: 'Cola',
@@ -87,27 +102,83 @@ async function main() {
       category: 'Drinks',
       url: 'ice_tea_zero.png',
     },
+    {
+      name: 'Boulet',
+      price: 2.8,
+      category: 'Snacks',
+      url: 'boulet.png',
+    },
+    {
+      name: 'Bitterballen',
+      price: 2.8,
+      category: 'Snacks',
+      url: 'bitterbal.png',
+    },
+    {
+      name: 'Mini Friet',
+      price: 2.8,
+      category: 'Fries',
+      url: 'fries_mini.png',
+    },
+    {
+      name: 'Kleine Friet',
+      price: 3.3,
+      category: 'Fries',
+      url: 'fries_small.png',
+    },
+    {
+      name: 'Grote Friet',
+      price: 4,
+      category: 'Fries',
+      url: 'fries_big.png',
+    },
+    {
+      name: 'Super Friet',
+      price: 5.1,
+      category: 'Fries',
+      url: 'fries_super.png',
+    },
+    {
+      name: 'Curryworst',
+      price: 2.3,
+      category: 'Snacks',
+      url: 'frikandel.png',
+    },
   ];
 
   const products = [];
-  for (const product of products) {
-    products.push(
-      await prisma.product.create({
-        data: {
-          name: product.name,
-          price: product.price,
-          category: {
-            connect: {
-              categoryId: categories[product.category].categoryId,
+  for (const product of productsData) {
+    const ProductExists = await prisma.product.findFirst({
+      where: {
+        name: product.name,
+      },
+    });
+    const category = await prisma.category.findFirst({
+      where: {
+        name: product.category,
+      },
+    });
+
+    if (category && !ProductExists) {
+      products.push(
+        await prisma.product.create({
+          data: {
+            name: product.name,
+            price: product.price,
+            category: {
+              connect: {
+                id: category.id,
+              },
             },
+            url: product.url,
           },
-          url: product.url,
-        },
-      }),
-    );
+        }),
+      );
+    }
   }
 }
 
+//clearAll();
 main()
   .catch((e) => {
     throw e;
