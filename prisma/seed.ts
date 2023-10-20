@@ -55,7 +55,7 @@ async function main() {
       name: 'Cola',
       price: 2,
       category: 'Drinks',
-      url: 'cola.png',
+      url: 'coke.png',
     },
     {
       name: 'Fanta',
@@ -67,7 +67,7 @@ async function main() {
       name: 'Cola Zero',
       price: 2,
       category: 'Drinks',
-      url: 'cola_zero.png',
+      url: 'coke_zero.png',
     },
     {
       name: 'Sprite',
@@ -85,7 +85,7 @@ async function main() {
       name: 'Water Bruis',
       price: 2,
       category: 'Drinks',
-      url: 'water_bruis.png',
+      url: 'water_spark.png',
     },
     {
       name: 'Ice Tea',

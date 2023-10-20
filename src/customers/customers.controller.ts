@@ -22,7 +22,7 @@ export class CustomersController {
   }
 
   @Get(':id')
-  async findCustomerById(@Param('id') id: string) {
+  async findCustomerById(@Param('id') id: number) {
     return this.customersService.findOne(id);
   }
 
@@ -32,12 +32,12 @@ export class CustomersController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() customer: Customer) {
+  update(@Param('id') id: number, @Body() customer: Customer) {
     return this.customersService.update(id, customer);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.customersService.remove(id);
   }
 }
