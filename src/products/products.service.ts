@@ -7,17 +7,35 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
 
-  async getAll() {
+  async getAll(): Promise<Product[]> {
     return await this.prisma.product.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<Product> | null {
     return await this.prisma.product.findUnique({
       where: { id },
     });
   }
+  // stel dat we met repository werken: nieuwe file aanmaken met de methode van deze file en die dan in deze file aanroepen: extra stap?
+  /* products.repository.ts
+    async findOne(id: number): Promise<Product> | null {
+      return await this.prisma.product.findUnique({
+        where: { id },
+      });
+    }
 
-  async create(product: Product) {
+    products.service.ts
+    async findOne(id: number): Promise<Product> {
+      return await this.productsRepository.findOne(id);
+     
+    }
+
+    products.controller.ts
+    blijft zelfde
+
+  */
+
+  async create(product: Product): Promise<Product> {
     const exists = this.prisma.product.findUnique({
       where: { id: product.id },
     });
@@ -31,14 +49,14 @@ export class ProductsService {
     });
   }
 
-  async update(id: number, product: Product) {
+  async update(id: number, product: Product): Promise<Product> | null {
     return await this.prisma.product.update({
       where: { id },
       data: product,
     });
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<Product> | null {
     return await this.prisma.product.delete({
       where: { id },
     });

@@ -223,6 +223,13 @@ async function main() {
       email: 'david.w@example.com',
       phone: '555-234-5678',
     },
+    {
+      firstName: 'Maxim',
+      lastName: 'Lison',
+      birthDate: new Date('2002-05-07T12:30:30Z'),
+      email: 'maxim@lison.be',
+      phone: '555-234-5678',
+    },
   ];
 
   for (const customer of mockCustomers) {
