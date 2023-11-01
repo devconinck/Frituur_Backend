@@ -1,43 +1,53 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
-  Param,
   Post,
-  Put,
+  Body,
+  Patch,
+  Param,
+  Delete,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
-import { Category } from '@prisma/client';
-import { ApiTags } from '@nestjs/swagger';
+import { CreateCategoryDto } from './dto/create-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { CategoryEntity } from './entities/category.entity';
 
 @Controller('categories')
 @ApiTags('categories')
 export class CategoriesController {
-  constructor(private categoriesService: CategoriesService) {}
+  constructor(private readonly categoriesService: CategoriesService) {}
+
+  @Post()
+  @ApiCreatedResponse({ type: CategoryEntity })
+  async create(@Body() createCategoryDto: CreateCategoryDto) {
+    return this.categoriesService.create(createCategoryDto);
+  }
 
   @Get()
-  async findAllCategories() {
+  @ApiOkResponse({ type: CategoryEntity, isArray: true })
+  async findAll() {
     return this.categoriesService.findAll();
   }
 
   @Get(':id')
-  async findCategoryById(@Param('id') id: number) {
+  @ApiOkResponse({ type: CategoryEntity })
+  async findOne(@Param('id') id: string) {
     return this.categoriesService.findOne(+id);
   }
 
-  @Post()
-  create(@Body() category: Category) {
-    return this.categoriesService.create(category);
-  }
-
-  @Put(':id')
-  update(@Param('id') id: number, @Body() category: Category) {
-    return this.categoriesService.update(+id, category);
+  @Patch(':id')
+  @ApiOkResponse({ type: CategoryEntity })
+  async update(
+    @Param('id') id: string,
+    @Body() updateCategoryDto: UpdateCategoryDto,
+  ) {
+    return this.categoriesService.update(+id, updateCategoryDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  @ApiOkResponse({ type: CategoryEntity })
+  async remove(@Param('id') id: string) {
     return this.categoriesService.remove(+id);
   }
 }

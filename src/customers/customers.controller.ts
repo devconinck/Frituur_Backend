@@ -1,43 +1,53 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
-  Param,
   Post,
-  Put,
+  Body,
+  Patch,
+  Param,
+  Delete,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
-import { Customer } from '@prisma/client';
-import { ApiTags } from '@nestjs/swagger';
+import { CreateCustomerDto } from './dto/create-customer.dto';
+import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { ApiTags, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
+import { CustomerEntity } from './entities/customer.entity';
 
 @Controller('customers')
 @ApiTags('customers')
 export class CustomersController {
-  constructor(private customersService: CustomersService) {}
+  constructor(private readonly customersService: CustomersService) {}
+
+  @Post()
+  @ApiCreatedResponse({ type: CustomerEntity })
+  async create(@Body() createCustomerDto: CreateCustomerDto) {
+    return this.customersService.create(createCustomerDto);
+  }
 
   @Get()
-  async getAllCustomers() {
-    return this.customersService.getAllCustomers();
+  @ApiOkResponse({ type: CustomerEntity, isArray: true })
+  async findAll() {
+    return this.customersService.findAll();
   }
 
   @Get(':id')
-  async findCustomerById(@Param('id') id: number) {
-    return this.customersService.findOne(id);
+  @ApiOkResponse({ type: CustomerEntity })
+  async findOne(@Param('id') id: string) {
+    return this.customersService.findOne(+id);
   }
 
-  @Post()
-  create(@Body() customer: Customer) {
-    return this.customersService.create(customer);
-  }
-
-  @Put(':id')
-  update(@Param('id') id: number, @Body() customer: Customer) {
-    return this.customersService.update(id, customer);
+  @Patch(':id')
+  @ApiOkResponse({ type: CustomerEntity })
+  async update(
+    @Param('id') id: string,
+    @Body() updateCustomerDto: UpdateCustomerDto,
+  ) {
+    return this.customersService.update(+id, updateCustomerDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.customersService.remove(id);
+  @ApiOkResponse({ type: CustomerEntity })
+  async remove(@Param('id') id: string) {
+    return this.customersService.remove(+id);
   }
 }

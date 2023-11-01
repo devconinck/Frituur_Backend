@@ -266,7 +266,6 @@ async function main() {
     });
 
     for (const order of orders) {
-      // Randomly select a product and quantity for this order
       const randomProduct =
         productsIn[Math.floor(Math.random() * productsIn.length)];
       const randomQuantity = getRandomQuantity();

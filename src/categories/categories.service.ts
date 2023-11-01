@@ -1,37 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import { Category } from '@prisma/client';
+import { CreateCategoryDto } from './dto/create-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
-  findAll() {
-    return this.prisma.category.findMany();
+  async create(createCategoryDto: CreateCategoryDto) {
+    return await this.prisma.category.create({ data: createCategoryDto });
   }
 
-  findOne(id: number) {
-    return this.prisma.category.findUnique({
+  async findAll() {
+    return await this.prisma.category.findMany();
+  }
+
+  async findOne(id: number) {
+    return await this.prisma.category.findUnique({ where: { id } });
+  }
+
+  async update(id: number, updateCategoryDto: UpdateCategoryDto) {
+    return await this.prisma.category.update({
       where: { id },
+      data: updateCategoryDto,
     });
   }
 
-  create(category: Category) {
-    return this.prisma.category.create({
-      data: category,
-    });
-  }
-
-  update(id: number, category: Category) {
-    return this.prisma.category.update({
-      where: { id },
-      data: category,
-    });
-  }
-
-  remove(id: number) {
-    return this.prisma.category.delete({
-      where: { id },
-    });
+  async remove(id: number) {
+    return await this.prisma.category.delete({ where: { id } });
   }
 }

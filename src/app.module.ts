@@ -10,8 +10,20 @@ import { CustomersService } from './customers/customers.service';
 import { CustomersController } from './customers/customers.controller';
 import { OrdersController } from './orders/orders.controller';
 import { OrdersService } from './orders/orders.service';
+import { CustomersModule } from './customers/customers.module';
+import { ProductsModule } from './products/products.module';
+import { CategoriesModule } from './categories/categories.module';
+import { OrderItemsModule } from './order-items/order-items.module';
+import { OrdersModule } from './orders/orders.module';
 @Module({
-  imports: [PrismaModule],
+  imports: [
+    PrismaModule,
+    CustomersModule,
+    ProductsModule,
+    CategoriesModule,
+    OrderItemsModule,
+    OrdersModule,
+  ],
   controllers: [
     AppController,
     ProductsController,
