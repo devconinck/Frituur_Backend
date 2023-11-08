@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -39,7 +40,7 @@ export class CustomersController {
   @Patch(':id')
   @ApiOkResponse({ type: CustomerEntity })
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
   ) {
     return this.customersService.update(+id, updateCustomerDto);
@@ -47,7 +48,7 @@ export class CustomersController {
 
   @Delete(':id')
   @ApiOkResponse({ type: CustomerEntity })
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', ParseIntPipe) id: string) {
     return this.customersService.remove(+id);
   }
 }

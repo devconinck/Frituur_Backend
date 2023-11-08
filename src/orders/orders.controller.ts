@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -32,14 +33,14 @@ export class OrdersController {
 
   @Get(':id')
   @ApiOkResponse({ type: OrderEntity })
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseIntPipe) id: string) {
     return this.ordersService.findOne(+id);
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: OrderEntity })
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: string,
     @Body() updateOrderDto: UpdateOrderDto,
   ) {
     return this.ordersService.update(+id, updateOrderDto);
@@ -47,7 +48,7 @@ export class OrdersController {
 
   @Delete(':id')
   @ApiOkResponse({ type: OrderEntity })
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', ParseIntPipe) id: string) {
     return this.ordersService.remove(+id);
   }
 }

@@ -40,8 +40,8 @@ export class OrderItemsController {
   @Get(':orderId/:productId')
   @ApiOkResponse({ type: OrderItemEntity })
   async findOne(
-    @Param('orderId') orderId: number,
-    @Param('productId') productId: number,
+    @Param('orderId', ParseIntPipe) orderId: number,
+    @Param('productId', ParseIntPipe) productId: number,
   ) {
     return this.orderItemsService.findOne(orderId, productId);
   }
@@ -49,8 +49,8 @@ export class OrderItemsController {
   @Patch(':orderId/:productId')
   @ApiOkResponse({ type: OrderItemEntity })
   async update(
-    @Param('orderId') orderId: number,
-    @Param('productId') productId: number,
+    @Param('orderId', ParseIntPipe) orderId: number,
+    @Param('productId', ParseIntPipe) productId: number,
     @Body() updateOrderItemDto: UpdateOrderItemDto,
   ) {
     return this.orderItemsService.update(
