@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Put,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -37,7 +38,7 @@ export class CustomersController {
     return this.customersService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @ApiOkResponse({ type: CustomerEntity })
   async update(
     @Param('id', ParseIntPipe) id: string,

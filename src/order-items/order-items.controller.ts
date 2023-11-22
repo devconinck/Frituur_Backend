@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Put,
 } from '@nestjs/common';
 import { OrderItemsService } from './order-items.service';
 import { CreateOrderItemDto } from './dto/create-order-item.dto';
@@ -46,7 +47,7 @@ export class OrderItemsController {
     return this.orderItemsService.findOne(orderId, productId);
   }
 
-  @Patch(':orderId/:productId')
+  @Put(':orderId/:productId')
   @ApiOkResponse({ type: OrderItemEntity })
   async update(
     @Param('orderId', ParseIntPipe) orderId: number,

@@ -1,24 +1,34 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Decimal } from '@prisma/client/runtime/library';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  isNotEmpty,
+  isNumber,
+} from 'class-validator';
 
 export class CreateProductDto {
   @ApiProperty()
-  id: number;
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+  @ApiProperty({ default: null })
+  @IsOptional()
+  description: string;
+
+  @ApiProperty({ default: null })
+  @IsNumber()
+  @IsNotEmpty()
+  price: Decimal;
 
   @ApiProperty()
-  createdAt: Date;
+  @IsOptional()
+  url: string;
 
   @ApiProperty()
   categoryId: number;
   @ApiProperty()
-  name: string;
-
-  @ApiProperty()
-  description: string;
-
-  @ApiProperty()
-  price: Decimal;
-
-  @ApiProperty()
-  url: string;
+  createdAt: Date;
 }
