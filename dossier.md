@@ -236,6 +236,7 @@ Ik heb gebruik gemaakt van NestJs dus de mappenstructuur ligt vast bij initialis
   Typescript is een superset van Javascript en verplicht je om alle types in het project te definiëren.
 - #### Prisma:
   Prisma is een ORM (Object Relational Mapper) om zonder zelf SQL te moeten schrijven, interacties te kunnen hebben met de database.
+  Voor migration = database met tabellen aanmaken: npx prisma migrate dev --name "init"
 
 ## Testresultaten
 
