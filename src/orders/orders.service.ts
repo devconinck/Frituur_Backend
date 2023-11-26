@@ -14,6 +14,19 @@ export class OrdersService {
     return await this.prisma.order.findMany();
   }
 
+  async findAllForUser(userId: number) {
+    return await this.prisma.order.findMany({
+      where: { customerId: userId },
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+  }
+
   async findOne(id: number) {
     return await this.prisma.order.findUnique({ where: { id } });
   }

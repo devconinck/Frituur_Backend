@@ -32,6 +32,12 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
+  @Get('user/:userId')
+  @ApiOkResponse({ type: OrderEntity, isArray: true })
+  async findAllForUser(@Param('userId', ParseIntPipe) userId: string) {
+    return this.ordersService.findAllForUser(+userId);
+  }
+
   @Get(':id')
   @ApiOkResponse({ type: OrderEntity })
   async findOne(@Param('id', ParseIntPipe) id: string) {
