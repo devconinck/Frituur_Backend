@@ -11,7 +11,15 @@ export class OrdersService {
   }
 
   async findAll() {
-    return await this.prisma.order.findMany();
+    return await this.prisma.order.findMany({
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
   }
 
   async findAllForUser(userId: number) {

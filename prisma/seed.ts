@@ -237,12 +237,19 @@ async function main() {
       data: customer,
     });
   }
-
   const customers = await prisma.customer.findMany();
+  const productsForOrders = await prisma.product.findMany();
 
+  // Function to generate a random quantity between min and max
+  function getRandomQuantity(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // Seed orders and order items
   for (const customer of customers) {
+    // Create 3 orders per customer
     for (let i = 0; i < 3; i++) {
-      await prisma.order.create({
+      const order = await prisma.order.create({
         data: {
           customer: {
             connect: { id: customer.id },
@@ -250,34 +257,33 @@ async function main() {
           pickup: new Date(), // Set your pickup date here
         },
       });
-    }
-  }
 
-  const productsIn = await prisma.product.findMany();
+      // Create 2 to 4 order items per order
+      const numItems = getRandomQuantity(2, 4);
+      const existingOrderItems = new Set();
 
-  // Define a function to generate a random quantity
-  function getRandomQuantity() {
-    return Math.floor(Math.random() * 4) + 1; // Generates a random quantity between 1 and 4
-  }
+      for (let j = 0; j < numItems; j++) {
+        let randomProduct, randomQuantity;
 
-  for (const customer of customers) {
-    const orders = await prisma.order.findMany({
-      where: { customerId: customer.id },
-    });
+        do {
+          randomProduct =
+            productsForOrders[
+              Math.floor(Math.random() * productsForOrders.length)
+            ];
+          randomQuantity = getRandomQuantity(1, 5);
+        } while (existingOrderItems.has(`${order.id}-${randomProduct.id}`));
 
-    for (const order of orders) {
-      const randomProduct =
-        productsIn[Math.floor(Math.random() * productsIn.length)];
-      const randomQuantity = getRandomQuantity();
+        existingOrderItems.add(`${order.id}-${randomProduct.id}`);
 
-      // Create the OrderItem for this order
-      await prisma.orderItem.create({
-        data: {
-          order: { connect: { id: order.id } },
-          product: { connect: { id: randomProduct.id } },
-          quantity: randomQuantity,
-        },
-      });
+        // Create the OrderItem for this order
+        await prisma.orderItem.create({
+          data: {
+            order: { connect: { id: order.id } },
+            product: { connect: { id: randomProduct.id } },
+            quantity: randomQuantity,
+          },
+        });
+      }
     }
   }
 }
