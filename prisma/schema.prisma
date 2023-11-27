@@ -68,14 +68,16 @@ enum Role {
 
 model Customer{
   id Int @id @default(autoincrement())
-  firstName String
-  lastName String
-  birthDate DateTime
+  name String
+  //firstName String
+  //lastName String
+  //birthDate DateTime
   email String
-  phone String
-  createdAt DateTime @default(now())
+  password String
+  //phone String
+  //createdAt DateTime @default(now())
   orders Order[]
-  roles Role[]
+  //role Role @default(USER)
 
   @@index([id])
 }

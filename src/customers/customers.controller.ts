@@ -15,16 +15,22 @@ import { ApiTags, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { CustomerEntity } from './entities/customer.entity';
 import { Roles } from 'src/roles.decorator';
 import { Role } from 'src/role.enum';
+import * as bcrypt from 'bcrypt';
 
 @Controller('customers')
 @ApiTags('customers')
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
 
-  @Post()
+  @Post('/signup')
   @Roles(Role.Admin, Role.User)
   @ApiCreatedResponse({ type: CustomerEntity })
   async create(@Body() createCustomerDto: CreateCustomerDto) {
+    const saltOrRounds = 10;
+    createCustomerDto.password = await bcrypt.hash(
+      createCustomerDto.password,
+      saltOrRounds,
+    );
     return this.customersService.create(createCustomerDto);
   }
 

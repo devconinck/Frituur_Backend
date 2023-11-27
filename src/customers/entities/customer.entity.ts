@@ -2,6 +2,7 @@ import { Customer } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CustomerEntity implements Customer {
+  name: string;
   @ApiProperty()
   firstName: string;
   @ApiProperty()
@@ -12,6 +13,8 @@ export class CustomerEntity implements Customer {
   phone: string;
   @ApiProperty()
   id: number;
+  @ApiProperty()
+  password: string;
 
   @ApiProperty()
   email: string;

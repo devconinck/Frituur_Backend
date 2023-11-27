@@ -182,18 +182,21 @@ async function main() {
 
   const mockCustomers = [
     {
-      firstName: 'John',
-      lastName: 'Doe',
-      birthDate: new Date('1990-01-15T00:00:00Z'),
+      name: 'John',
+      //firstName: 'John',
+      //lastName: 'Doe',
+      //birthDate: new Date('1990-01-15T00:00:00Z'),
       email: 'john.doe@example.com',
-      phone: '123-456-7890',
+      //phone: '123-456-7890',
+      password: 'password1',
     },
-    {
+    /* {
       firstName: 'Jane',
       lastName: 'Smith',
       birthDate: new Date('1985-05-20T00:00:00Z'),
       email: 'jane.smith@example.com',
       phone: '987-654-3210',
+      password: 'password2',
     },
     {
       firstName: 'Alice',
@@ -201,6 +204,7 @@ async function main() {
       birthDate: new Date('1992-08-10T00:00:00Z'),
       email: 'alice.j@example.com',
       phone: '555-123-4567',
+      password: 'password3',
     },
     {
       firstName: 'Bob',
@@ -208,6 +212,7 @@ async function main() {
       birthDate: new Date('1988-03-25T00:00:00Z'),
       email: 'bob.smith@example.com',
       phone: '555-987-6543',
+      password: 'password4',
     },
     {
       firstName: 'Eve',
@@ -215,6 +220,7 @@ async function main() {
       birthDate: new Date('1995-12-03T00:00:00Z'),
       email: 'eve.adams@example.com',
       phone: '555-876-5432',
+      password: 'password5',
     },
     {
       firstName: 'David',
@@ -222,13 +228,16 @@ async function main() {
       birthDate: new Date('1990-06-15T00:00:00Z'),
       email: 'david.w@example.com',
       phone: '555-234-5678',
-    },
+      password: 'password6',
+    }, */
     {
-      firstName: 'Maxim',
-      lastName: 'Lison',
-      birthDate: new Date('2002-05-07T12:30:30Z'),
+      name: 'Maxim',
+      //firstName: 'Maxim',
+      //lastName: 'Lison',
+      //birthDate: new Date('2002-05-07T12:30:30Z'),
       email: 'maxim@lison.be',
-      phone: '555-234-5678',
+      //phone: '555-234-5678',
+      password: 'password7',
     },
   ];
 
