@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CustomersService } from 'src/customers/customers.service';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
@@ -52,7 +51,8 @@ export class AuthService {
       return {
         statusCode: 200,
         message: 'User logged in successfully',
-        accessToken: accessToken,
+        token: accessToken,
+        user: user,
       };
     } else {
       throw new HttpException(
