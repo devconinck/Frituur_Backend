@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -6,47 +6,88 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class OrdersService {
   constructor(private prisma: PrismaService) {}
+
+  private readonly logger = new Logger(OrdersService.name);
+
   create(createOrderDto: CreateOrderDto) {
-    return this.prisma.order.create({ data: createOrderDto });
+    this.logger.log('Creating order: ' + JSON.stringify(createOrderDto));
+    try {
+      return this.prisma.order.create({ data: createOrderDto });
+    } catch (error) {
+      this.logger.error(`Error creating order: ${error.stack}`);
+      throw error;
+    }
   }
 
   async findAll() {
-    return await this.prisma.order.findMany({
-      include: {
-        items: {
-          include: {
-            product: true,
+    this.logger.log('Finding all orders');
+    try {
+      return await this.prisma.order.findMany({
+        include: {
+          items: {
+            include: {
+              product: true,
+            },
           },
         },
-      },
-    });
+      });
+    } catch (error) {
+      this.logger.error(`Error finding all orders: ${error.stack}`);
+      throw error;
+    }
   }
 
   async findAllForUser(userId: number) {
-    return await this.prisma.order.findMany({
-      where: { customerId: userId },
-      include: {
-        items: {
-          include: {
-            product: true,
+    this.logger.log(`Finding all orders for user with id: ${userId}`);
+    try {
+      return await this.prisma.order.findMany({
+        where: { customerId: userId },
+        include: {
+          items: {
+            include: {
+              product: true,
+            },
           },
         },
-      },
-    });
+      });
+    } catch (error) {
+      this.logger.error(`Error finding all orders for user with id: ${userId}`);
+      throw error;
+    }
   }
 
   async findOne(id: number) {
-    return await this.prisma.order.findUnique({ where: { id } });
+    this.logger.log(`Finding order with id: ${id}`);
+    try {
+      return await this.prisma.order.findUnique({ where: { id } });
+    } catch (error) {
+      this.logger.error(`Error finding order with id: ${id}`);
+      throw error;
+    }
   }
 
   async update(id: number, updateOrderDto: UpdateOrderDto) {
-    return await this.prisma.order.update({
-      where: { id },
-      data: updateOrderDto,
-    });
+    this.logger.log(
+      `Updating order with id: ${id} to ${JSON.stringify(updateOrderDto)}`,
+    );
+    try {
+      return await this.prisma.order.update({
+        where: { id },
+        data: updateOrderDto,
+      });
+    } catch (error) {
+      this.logger.error(`Error updating order with id: ${id}`);
+      throw error;
+    }
   }
 
   async remove(id: number) {
-    return await this.prisma.order.delete({ where: { id } });
+    this.logger.log(`Removing order with id: ${id}`);
+    try {
+      return await this.prisma.order.delete({ where: { id } });
+    } catch (error) {
+      this.logger.error(`Error removing order with id: ${id}`);
+      throw error;
+    }
   }
 }

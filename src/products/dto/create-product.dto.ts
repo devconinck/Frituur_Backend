@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Decimal } from '@prisma/client/runtime/library';
 import {
+  IsISSN,
+  IsInt,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -19,7 +21,7 @@ export class CreateProductDto {
   description: string;
 
   @ApiProperty({ default: null })
-  @IsNumber()
+  @IsInt()
   @IsNotEmpty()
   price: Decimal;
 

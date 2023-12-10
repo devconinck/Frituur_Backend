@@ -263,7 +263,6 @@ async function main() {
           customer: {
             connect: { id: customer.id },
           },
-          pickup: new Date(), // Set your pickup date here
         },
       });
 

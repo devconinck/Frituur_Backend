@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -7,26 +7,64 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
+  private readonly logger = new Logger(CategoriesService.name);
+
   async create(createCategoryDto: CreateCategoryDto) {
-    return await this.prisma.category.create({ data: createCategoryDto });
+    this.logger.log('Creating category: ' + JSON.stringify(createCategoryDto));
+    try {
+      return await this.prisma.category.create({ data: createCategoryDto });
+    } catch (error) {
+      this.logger.error(`Error creating category: ${error.stack}`);
+      throw error;
+    }
   }
 
   async findAll() {
-    return await this.prisma.category.findMany();
+    this.logger.log('Finding all categories');
+    try {
+      return await this.prisma.category.findMany();
+    } catch (error) {
+      this.logger.error(`Error finding all categories: ${error.stack}`);
+      throw error;
+    }
   }
 
   async findOne(id: number) {
-    return await this.prisma.category.findUnique({ where: { id } });
+    this.logger.log(`Finding category with id: ${id}`);
+    try {
+      return await this.prisma.category.findUnique({
+        where: { id },
+      });
+    } catch (error) {
+      this.logger.error(`Error finding category with id: ${id}`);
+      throw error;
+    }
   }
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return await this.prisma.category.update({
-      where: { id },
-      data: updateCategoryDto,
-    });
+    this.logger.log(
+      `Updating category with id: ${id} to ${JSON.stringify(
+        updateCategoryDto,
+      )}`,
+    );
+    try {
+      return await this.prisma.category.update({
+        where: { id },
+        data: updateCategoryDto,
+      });
+    } catch (error) {
+      this.logger.error(`Error updating category with id: ${id}`);
+      throw error;
+    }
   }
 
   async remove(id: number) {
-    return await this.prisma.category.delete({ where: { id } });
+    this.logger.log(`Removing category with id: ${id}`);
+    try {
+      return await this.prisma.category.delete({ where: { id } });
+    } catch (error) {
+      this.logger.error(`Error removing category with id: ${id}`);
+      throw error;
+    }
   }
 }

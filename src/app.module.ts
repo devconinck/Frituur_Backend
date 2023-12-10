@@ -16,6 +16,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { OrderItemsModule } from './order-items/order-items.module';
 import { OrdersModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
+import { PrismaService } from './prisma/prisma.service';
 @Module({
   imports: [
     PrismaModule,
@@ -39,6 +40,7 @@ import { AuthModule } from './auth/auth.module';
     CategoriesService,
     CustomersService,
     OrdersService,
+    PrismaService,
   ],
 })
 export class AppModule {}

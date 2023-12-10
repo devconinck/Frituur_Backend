@@ -42,7 +42,6 @@ model Order {
   customer  Customer    @relation(fields: [customerId], references: [id])
   customerId Int
   items     OrderItem[]
-  pickup DateTime
 
   @@index([id])
   @@index([customerId])
