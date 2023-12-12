@@ -41,6 +41,7 @@ model Order {
   createdAt DateTime    @default(now())
   customer  Customer    @relation(fields: [customerId], references: [id])
   customerId Int
+  pickup DateTime
   items     OrderItem[]
 
   @@index([id])
@@ -59,24 +60,17 @@ model OrderItem {
   @@index([productId])
 }
 
-enum Role {
-  ADMIN
-  USER
-}
-
 
 model Customer{
   id Int @id @default(autoincrement())
   name String
-  //firstName String
-  //lastName String
-  //birthDate DateTime
+  lastName String?
+  birthDate DateTime?
   email String
   password String
-  //phone String
-  //createdAt DateTime @default(now())
+  createdAt DateTime @default(now())
   orders Order[]
-  //role Role @default(USER)
+  role String
 
   @@index([id])
 }
