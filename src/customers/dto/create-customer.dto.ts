@@ -23,4 +23,13 @@ export class CreateCustomerDto {
   @MinLength(8)
   @MaxLength(20)
   password: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  passwordConfirm: string;
+
+  @ApiProperty()
+  @IsString()
+  role: string;
 }

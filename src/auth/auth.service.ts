@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import { compare, hash } from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
@@ -19,15 +19,28 @@ export class AuthService {
     if (checkUserExists) {
       throw new HttpException('Email already exists', 400);
     }
+    const passwordsMatch = data.password === data.passwordConfirm;
+
+    if (!passwordsMatch) {
+      throw new HttpException('Passwords dont match', 400);
+    }
+
     data.password = await hash(data.password, 12);
     const createUser = await this.prisma.customer.create({
-      data: data,
+      data: {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        role: data.role ? data.role : 'USER',
+      },
     });
     if (createUser) {
       return {
         statusCode: 200,
         message: 'User created successfully',
       };
+    } else {
+      throw new HttpException('Error creating user', 500);
     }
   }
 

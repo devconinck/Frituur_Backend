@@ -33,14 +33,14 @@ export class OrdersController {
   @Roles(Role.Admin, Role.User)
   @ApiOkResponse({ type: OrderEntity, isArray: true })
   async findAll() {
-    return this.ordersService.findAll();
+    return await this.ordersService.findAll();
   }
 
   @Get('user/:userId')
   @Roles(Role.Admin, Role.User)
   @ApiOkResponse({ type: OrderEntity, isArray: true })
-  async findAllForUser(@Param('userId', ParseIntPipe) userId: string) {
-    return this.ordersService.findAllForUser(+userId);
+  async findAllForUser(@Param('userId', ParseIntPipe) userId: number) {
+    return this.ordersService.findAllForUser(userId);
   }
 
   @Get(':id')

@@ -6,7 +6,7 @@ export class AuthGuard extends AuthGuardPassport('jwt') {
     return super.canActivate(context) as Promise<boolean>;
   }
 
-  handleRequest(err, user, info) {
+  handleRequest(err, user) {
     if (err || !user) {
       throw err || new UnauthorizedException();
     }

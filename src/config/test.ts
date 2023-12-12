@@ -1,5 +1,4 @@
 module.exports = {
-  port: 9000,
   log: {
     level: 'silly',
     disabled: false,
@@ -12,7 +11,7 @@ module.exports = {
     client: 'mysql2',
     host: 'localhost',
     port: 3306,
-    name: 'test',
+    name: 'test2',
     username: 'root',
     password: 'root',
   },

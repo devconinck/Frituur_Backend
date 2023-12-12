@@ -21,4 +21,7 @@ export class CustomerEntity implements Customer {
 
   @ApiProperty()
   createdAt: Date;
+
+  @ApiProperty()
+  role: string;
 }

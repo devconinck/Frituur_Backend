@@ -1,7 +1,6 @@
 module.exports = {
-  port: 9000,
   log: {
-    level: 'silly',
+    level: 'info',
     disabled: false,
   },
   cors: {
@@ -13,7 +12,5 @@ module.exports = {
     host: 'localhost',
     port: 3306,
     name: 'test',
-    username: 'root',
-    password: 'root',
   },
 };

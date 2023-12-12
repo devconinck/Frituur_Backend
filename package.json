@@ -71,5 +71,13 @@
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
+  },
+  
+    "engines": {
+      "npm": ">=9.8.0",
+      "node": ">=20.6.0",
+      "yarn": ">=1.22.0"
+    
   }
+  
 }

@@ -15,4 +15,13 @@ export class RegisterDto {
   @IsString()
   @IsNotEmpty()
   password: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  passwordConfirm: string;
+
+  @ApiProperty()
+  @IsString()
+  role: string;
 }
