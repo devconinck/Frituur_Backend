@@ -6,6 +6,7 @@ import {
   IsEmail,
   MinLength,
   MaxLength,
+  IsOptional,
 } from 'class-validator';
 
 export class CreateCustomerDto {
@@ -31,5 +32,6 @@ export class CreateCustomerDto {
   passwordConfirm: string;
 
   @ApiProperty()
-  role: Role;
+  @IsOptional()
+  role?: Role;
 }
