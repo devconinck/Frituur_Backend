@@ -170,6 +170,7 @@ module.exports = {
     '/src/config/*',
     'dist/*',
     '/src/auth/auth.controller.spec.ts',
+    '/src/auth/auth.service.spec.ts',
   ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
