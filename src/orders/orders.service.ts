@@ -65,29 +65,4 @@ export class OrdersService {
       throw error;
     }
   }
-
-  async update(id: number, updateOrderDto: UpdateOrderDto) {
-    this.logger.log(
-      `Updating order with id: ${id} to ${JSON.stringify(updateOrderDto)}`,
-    );
-    try {
-      return await this.prisma.order.update({
-        where: { id },
-        data: updateOrderDto,
-      });
-    } catch (error) {
-      this.logger.error(`Error updating order with id: ${id}`);
-      throw error;
-    }
-  }
-
-  async remove(id: number) {
-    this.logger.log(`Removing order with id: ${id}`);
-    try {
-      return await this.prisma.order.delete({ where: { id } });
-    } catch (error) {
-      this.logger.error(`Error removing order with id: ${id}`);
-      throw error;
-    }
-  }
 }

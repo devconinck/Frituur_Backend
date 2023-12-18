@@ -18,4 +18,39 @@ describe('CategoriesController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  it('should return all categories', async () => {
+    const result = await controller.findAll();
+    expect(result).toBeDefined();
+    expect(result.length).toBeGreaterThan(0);
+  });
+
+  it('should return a category', async () => {
+    const result = await controller.findOne('1');
+    expect(result).toBeDefined();
+    expect(result.name).toBe('Drinks');
+  });
+
+  it('should create a category', async () => {
+    const result = await controller.create({
+      name: 'Test Category',
+    });
+    expect(result).toBeDefined();
+    expect(result.id).toBeGreaterThan(0);
+  });
+
+  it('should update a category', async () => {
+    const result = await controller.update('8', {
+      name: 'TestUpdate',
+    });
+    expect(result).toBeDefined();
+    expect(result.id).toBe(8);
+    expect(result.name).toBe('TestUpdate');
+  });
+
+  it('should delete a category', async () => {
+    const result = await controller.remove('8');
+    expect(result).toBeDefined();
+    expect(result.id).toBe(8);
+  });
 });

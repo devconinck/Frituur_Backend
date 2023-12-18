@@ -11,12 +11,19 @@ export class CustomersService {
   private readonly logger = new Logger(CustomersService.name);
 
   async create(createCustomerDto: CreateCustomerDto) {
+    const { name, email, password, passwordConfirm, role } = createCustomerDto;
     this.logger.log('Creating customer: ' + JSON.stringify(createCustomerDto));
+    const passwordMatch = password === passwordConfirm;
+    if (!passwordMatch) {
+      throw new Error('Passwords do not match');
+    }
     const hashedPassword = await bcrypt.hash(createCustomerDto.password, 10);
 
     createCustomerDto.password = hashedPassword;
     try {
-      return await this.prisma.customer.create({ data: createCustomerDto });
+      return await this.prisma.customer.create({
+        data: { name, email, password, role },
+      });
     } catch (error) {
       this.logger.error(`Error creating customer: ${error.stack}`);
       throw error;
@@ -45,30 +52,13 @@ export class CustomersService {
     }
   }
 
-  async findOneByEmail(email: string) {
-    this.logger.log(`Finding customer with email: ${email}`);
-    try {
-      return await this.prisma.customer.findFirst({
-        where: { email },
-      });
-    } catch (error) {
-      this.logger.error(`Error finding customer with email: ${email}`);
-      throw error;
-    }
-  }
-
   async update(id: number, updateCustomerDto: UpdateCustomerDto) {
     this.logger.log(
       `Updating customer with id: ${id} to ${JSON.stringify(
         updateCustomerDto,
       )}`,
     );
-    if (updateCustomerDto.password) {
-      updateCustomerDto.password = await bcrypt.hash(
-        updateCustomerDto.password,
-        10,
-      );
-    }
+
     try {
       return await this.prisma.customer.update({
         where: { id },

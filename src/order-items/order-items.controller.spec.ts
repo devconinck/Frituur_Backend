@@ -18,4 +18,16 @@ describe('OrderItemsController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  it('should create order item', async () => {
+    const orderItem = await controller.create({
+      quantity: 4,
+      productId: 20,
+      orderId: 1,
+    });
+    expect(orderItem).toBeInstanceOf(Object);
+    expect(orderItem.orderId).toBe(1);
+    expect(orderItem.quantity).toBe(4);
+    expect(orderItem.productId).toBe(20);
+  });
 });

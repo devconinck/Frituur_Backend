@@ -19,11 +19,11 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { CustomerEntity } from './entities/customer.entity';
-import { Roles } from 'src/roles.decorator';
-import { Role } from 'src/role.enum';
+import { Roles } from 'src/auth/roles.decorator';
+import { Role } from 'src/auth/role.enum';
 import * as bcrypt from 'bcrypt';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { RolesGuard } from 'src/roles.guard';
+import { RolesGuard } from 'src/auth/roles.guard';
 
 @Controller('customers')
 @ApiTags('customers')
@@ -34,11 +34,6 @@ export class CustomersController {
   @Roles(Role.User)
   @ApiCreatedResponse({ type: CustomerEntity })
   async create(@Body() createCustomerDto: CreateCustomerDto) {
-    const saltOrRounds = 10;
-    createCustomerDto.password = await bcrypt.hash(
-      createCustomerDto.password,
-      saltOrRounds,
-    );
     return this.customersService.create(createCustomerDto);
   }
 

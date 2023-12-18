@@ -18,7 +18,7 @@ export class CreateProductDto {
   name: string;
   @ApiProperty({ default: null })
   @IsOptional()
-  description: string;
+  description?: string;
 
   @ApiProperty({ default: null })
   @IsInt()
@@ -27,10 +27,10 @@ export class CreateProductDto {
 
   @ApiProperty()
   @IsOptional()
-  url: string;
+  url?: string;
 
   @ApiProperty()
   categoryId: number;
   @ApiProperty()
-  createdAt: Date;
+  createdAt?: Date;
 }
