@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class CustomersService {
@@ -11,6 +12,9 @@ export class CustomersService {
 
   async create(createCustomerDto: CreateCustomerDto) {
     this.logger.log('Creating customer: ' + JSON.stringify(createCustomerDto));
+    const hashedPassword = await bcrypt.hash(createCustomerDto.password, 10);
+
+    createCustomerDto.password = hashedPassword;
     try {
       return await this.prisma.customer.create({ data: createCustomerDto });
     } catch (error) {
@@ -59,6 +63,12 @@ export class CustomersService {
         updateCustomerDto,
       )}`,
     );
+    if (updateCustomerDto.password) {
+      updateCustomerDto.password = await bcrypt.hash(
+        updateCustomerDto.password,
+        10,
+      );
+    }
     try {
       return await this.prisma.customer.update({
         where: { id },

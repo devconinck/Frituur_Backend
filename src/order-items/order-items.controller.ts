@@ -29,21 +29,18 @@ export class OrderItemsController {
   }
 
   @Get()
-  @Roles(Role.Admin, Role.User)
   @ApiOkResponse({ type: OrderItemEntity, isArray: true })
   async findAll() {
     return this.orderItemsService.findAll();
   }
 
   @Get(':orderId')
-  @Roles(Role.Admin, Role.User)
   @ApiOkResponse({ type: OrderItemEntity, isArray: true })
   async findAllByOrderId(@Param('orderId', ParseIntPipe) orderId: number) {
     return this.orderItemsService.findAllByOrderId(orderId);
   }
 
   @Get(':orderId/:productId')
-  @Roles(Role.Admin, Role.User)
   @ApiOkResponse({ type: OrderItemEntity })
   async findOne(
     @Param('orderId', ParseIntPipe) orderId: number,

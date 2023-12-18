@@ -20,7 +20,7 @@ model Product {
   description String?
   price      Decimal
   createdAt  DateTime    @default(now())
-  category   Category    @relation(fields: [categoryId], references: [id])
+  category   Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId Int
   url        String?
   OrderItem  OrderItem[]
@@ -70,7 +70,7 @@ model Customer{
   password String
   createdAt DateTime @default(now())
   orders Order[]
-  role String
+  role Role
 
   @@index([id])
 }
@@ -78,3 +78,8 @@ model Customer{
 
 
 
+
+enum Role {
+  USER
+  ADMIN
+}

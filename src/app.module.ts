@@ -17,6 +17,7 @@ import { OrderItemsModule } from './order-items/order-items.module';
 import { OrdersModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaService } from './prisma/prisma.service';
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     PrismaModule,
@@ -26,6 +27,7 @@ import { PrismaService } from './prisma/prisma.service';
     OrderItemsModule,
     OrdersModule,
     AuthModule,
+    ConfigModule.forRoot(),
   ],
   controllers: [
     AppController,

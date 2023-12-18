@@ -3,6 +3,11 @@ import { AuthService } from '../src/auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../src/prisma/prisma.service';
 
+enum Role {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+}
+
 const prisma = new PrismaClient();
 const jwtService = new JwtService();
 const prismaService = new PrismaService();
@@ -271,21 +276,21 @@ const mockCustomers = [
     email: 'john.doe@example.com',
     password: 'password1',
     passwordConfirm: 'password1',
-    role: 'USER',
+    role: Role.USER,
   },
   {
     name: 'Quinten',
     email: 'Quinten@gmail.com',
     password: 'StrongPassword1',
     passwordConfirm: 'StrongPassword1',
-    role: 'ADMIN',
+    role: Role.ADMIN,
   },
   {
     name: 'Maxim',
     email: 'maxim@lison.be',
     password: 'password7',
     passwordConfirm: 'password7',
-    role: 'ADMIN',
+    role: Role.USER,
   },
 ];
 

@@ -13,6 +13,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle("Frituur d'Aa API")
     .setDescription('API Description')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

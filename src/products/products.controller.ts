@@ -29,14 +29,12 @@ export class ProductsController {
   }
 
   @Get()
-  @Roles(Role.Admin, Role.User)
   @ApiOkResponse({ type: ProductEntity, isArray: true })
   async findAll() {
     return this.productsService.findAll();
   }
 
   @Get(':id')
-  @Roles(Role.Admin, Role.User)
   @ApiOkResponse({ type: ProductEntity })
   async findOne(@Param('id', ParseIntPipe) id: string) {
     return this.productsService.findOne(+id);
