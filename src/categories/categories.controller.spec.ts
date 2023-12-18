@@ -39,15 +39,6 @@ describe('CategoriesController', () => {
     expect(result.id).toBeGreaterThan(0);
   });
 
-  it('should update a category', async () => {
-    const result = await controller.update('8', {
-      name: 'TestUpdate',
-    });
-    expect(result).toBeDefined();
-    expect(result.id).toBe(8);
-    expect(result.name).toBe('TestUpdate');
-  });
-
   it('should delete a category', async () => {
     const result = await controller.remove('8');
     expect(result).toBeDefined();

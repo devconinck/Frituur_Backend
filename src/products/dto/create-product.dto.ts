@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Decimal } from '@prisma/client/runtime/library';
 import {
   IsDate,
-  IsISSN,
   IsInt,
   IsNotEmpty,
   IsNumber,
@@ -10,8 +9,6 @@ import {
   IsString,
   MaxLength,
   MinLength,
-  isNotEmpty,
-  isNumber,
 } from 'class-validator';
 
 export class CreateProductDto {

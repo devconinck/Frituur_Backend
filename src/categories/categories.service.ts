@@ -1,6 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -37,23 +36,6 @@ export class CategoriesService {
       });
     } catch (error) {
       this.logger.error(`Error finding category with id: ${id}`);
-      throw error;
-    }
-  }
-
-  async update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    this.logger.log(
-      `Updating category with id: ${id} to ${JSON.stringify(
-        updateCategoryDto,
-      )}`,
-    );
-    try {
-      return await this.prisma.category.update({
-        where: { id },
-        data: updateCategoryDto,
-      });
-    } catch (error) {
-      this.logger.error(`Error updating category with id: ${id}`);
       throw error;
     }
   }
