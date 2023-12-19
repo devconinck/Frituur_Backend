@@ -28,8 +28,7 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
-  @UseGuards(AuthGuard, RolesGuard)
-  @Roles(Role.User)
+  @UseGuards(AuthGuard)
   @ApiCreatedResponse({ type: OrderEntity })
   async create(@Body() createOrderDto: CreateOrderDto) {
     return this.ordersService.create(createOrderDto);
@@ -44,16 +43,14 @@ export class OrdersController {
   }
 
   @Get('user/:userId')
-  @UseGuards(AuthGuard, RolesGuard)
-  @Roles(Role.User)
+  @UseGuards(AuthGuard)
   @ApiOkResponse({ type: OrderEntity, isArray: true })
   async findAllForUser(@Param('userId', ParseIntPipe) userId: number) {
     return this.ordersService.findAllForUser(userId);
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard, RolesGuard)
-  @Roles(Role.User)
+  @UseGuards(AuthGuard)
   @ApiOkResponse({ type: OrderEntity })
   async findOne(@Param('id', ParseIntPipe) id: string) {
     return this.ordersService.findOne(+id);

@@ -20,7 +20,7 @@ describe('OrdersService', () => {
   it('should create an order', async () => {
     const order = await service.create({
       customerId: 1,
-      pickup: new Date(),
+      pickup: new Date().toISOString(),
     });
     expect(order).toHaveProperty('id');
   });

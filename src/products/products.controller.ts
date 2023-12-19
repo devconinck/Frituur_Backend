@@ -39,16 +39,14 @@ export class ProductsController {
   }
 
   @Get()
-  @UseGuards(AuthGuard, RolesGuard)
-  @Roles(Role.User)
+  @UseGuards(AuthGuard)
   @ApiOkResponse({ type: ProductEntity, isArray: true })
   async findAll() {
     return this.productsService.findAll();
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard, RolesGuard)
-  @Roles(Role.User)
+  @UseGuards(AuthGuard)
   @ApiOkResponse({ type: ProductEntity })
   async findOne(@Param('id', ParseIntPipe) id: string) {
     return this.productsService.findOne(+id);

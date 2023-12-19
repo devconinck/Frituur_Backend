@@ -40,7 +40,7 @@ describe('ProductsController', () => {
   it('should create a order', async () => {
     const result = await controller.create({
       customerId: 1,
-      pickup: new Date(),
+      pickup: new Date().toISOString(),
     });
     expect(result).toBeDefined();
     expect(result.id).toBeGreaterThan(0);
