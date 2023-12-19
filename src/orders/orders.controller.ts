@@ -46,11 +46,7 @@ export class OrdersController {
   @Get('user/:userId')
   @UseGuards(AuthGuard)
   @ApiOkResponse({ type: OrderEntity, isArray: true })
-  async findAllForUser(
-    @Param('userId', ParseIntPipe) userId: number,
-    @Req() req,
-  ) {
-    console.log('authorization header' + req.headers.authorization);
+  async findAllForUser(@Param('userId', ParseIntPipe) userId: number) {
     return this.ordersService.findAllForUser(userId);
   }
 
