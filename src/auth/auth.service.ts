@@ -25,7 +25,7 @@ export class AuthService {
     }
 
     data.password = await hash(data.password, 10);
-    const createUser = await this.prisma.customer.create({
+    const userId = await this.prisma.customer.create({
       data: {
         name: data.name,
         email: data.email,
@@ -33,8 +33,21 @@ export class AuthService {
         role: data.role ? data.role : Role.USER,
       },
     });
-    if (createUser) {
+    const createdUser = await this.prisma.customer.findUnique({
+      where: {
+        id: userId.id,
+      },
+    });
+    if (createdUser) {
+      const payload = { sub: createdUser.id, role: createdUser.role };
       return {
+        user: {
+          id: createdUser.id,
+          name: createdUser.name,
+          email: createdUser.email,
+          role: createdUser.role,
+        },
+        accessToken: await this.jwtService.signAsync(payload),
         statusCode: 201,
         message: 'User created successfully',
       };
@@ -66,8 +79,12 @@ export class AuthService {
     }
     const payload = { sub: user.id, role: user.role };
     return {
-      role: user.role,
-      id: user.id,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
       accessToken: await this.jwtService.signAsync(payload),
     };
   }

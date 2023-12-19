@@ -6,6 +6,7 @@ import {
   Param,
   ParseIntPipe,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -45,7 +46,11 @@ export class OrdersController {
   @Get('user/:userId')
   @UseGuards(AuthGuard)
   @ApiOkResponse({ type: OrderEntity, isArray: true })
-  async findAllForUser(@Param('userId', ParseIntPipe) userId: number) {
+  async findAllForUser(
+    @Param('userId', ParseIntPipe) userId: number,
+    @Req() req,
+  ) {
+    console.log('authorization header' + req.headers.authorization);
     return this.ordersService.findAllForUser(userId);
   }
 
