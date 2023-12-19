@@ -62,12 +62,4 @@ export class CustomersController {
   ) {
     return this.customersService.update(+id, updateCustomerDto);
   }
-
-  @Delete(':id')
-  @UseGuards(AuthGuard, RolesGuard)
-  @Roles(Role.Admin)
-  @ApiOkResponse({ type: CustomerEntity })
-  async remove(@Param('id', ParseIntPipe) id: string) {
-    return this.customersService.remove(+id);
-  }
 }
