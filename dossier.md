@@ -274,7 +274,10 @@ Ik heb gebruik gemaakt van NestJs dus heb ik hun mappenstructuur gebruikt: door 
 
 ### Web Services
 
-> Schrijf hier een korte oplijsting en beschrijving van de geschreven testen + voeg een screenshot van de coverage en uitvoering toe
+Elke file die door NestJs is aangemaakt is getest. Dit wil zeggen elke .controller.ts en .service.ts file heeft een equivalente .controller.spec.ts en .service.spec.ts file die testen definieert. Alle testen slagen, het is alleen spijtig dat dit niet werkt wanneer ik de AuthGuard en RolesGuard toevoeg aan de endpoints. De authenticatie zelf en de AuthGuard en RolesGuard zelf werken wel en wanneer ik ze manueel test in Swagger werkt alles naar behoren. Het was alleen niet mogelijk om de authenticatie te mocken in NestJs en daarom heb ik een aparte branch gemaakt die de authenticatie niet toepast op de endpoints. De authenticatie zelf wordt wel getest en werkt zoals gezegd naar behoren. De testen zijn geschreven met Jest en maken gebruik van de NestJs testing module.
+
+![coverage](https://github.com/QuintenDeconinck/Images/raw/main/Screenshot%202023-12-19%20134621.png)
+![coverage](https://github.com/QuintenDeconinck/Images/raw/main/Screenshot%202023-12-19%20134636.png)
 
 ## Gekende bugs
 
