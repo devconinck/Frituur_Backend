@@ -272,25 +272,39 @@ const productsData = [
 
 const mockCustomers = [
   {
-    name: 'John',
-    email: 'john.doe@example.com',
-    password: 'password1',
-    passwordConfirm: 'password1',
+    name: 'user',
+    email: 'user@email.com',
+    password: 'password',
+    passwordConfirm: 'password',
     role: Role.USER,
   },
   {
-    name: 'Quinten',
-    email: 'Quinten@gmail.com',
-    password: 'StrongPassword1',
-    passwordConfirm: 'StrongPassword1',
+    name: 'admin',
+    email: 'admin@email.com',
+    password: 'password',
+    passwordConfirm: 'password',
     role: Role.ADMIN,
   },
   {
-    name: 'Maxim',
-    email: 'maxim@lison.be',
-    password: 'password7',
-    passwordConfirm: 'password7',
+    name: 'Quinten',
+    email: 'quinten@email.com',
+    password: 'StrongPassword',
+    passwordConfirm: 'StrongPassword',
+    role: Role.ADMIN,
+  },
+  {
+    name: 'test',
+    email: 'test@test',
+    password: 'password',
+    passwordConfirm: 'password',
     role: Role.USER,
+  },
+  {
+    name: 'testAdmin',
+    email: 'testAdmin@test',
+    password: 'password',
+    passwordConfirm: 'password',
+    role: Role.ADMIN,
   },
 ];
 
