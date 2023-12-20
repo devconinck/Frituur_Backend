@@ -59,7 +59,16 @@ export class OrdersService {
   async findOne(id: number) {
     this.logger.log(`Finding order with id: ${id}`);
     try {
-      return await this.prisma.order.findUnique({ where: { id } });
+      return await this.prisma.order.findUnique({
+        where: { id },
+        include: {
+          items: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      });
     } catch (error) {
       this.logger.error(`Error finding order with id: ${id}`);
       throw error;

@@ -1,7 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { AuthService } from '../src/auth/auth.service';
-import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from '../src/prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
 
 enum Role {
   USER = 'USER',
@@ -9,8 +7,6 @@ enum Role {
 }
 
 const prisma = new PrismaClient();
-const jwtService = new JwtService();
-const prismaService = new PrismaService();
 const categorieNames = [
   'Drinks',
   'Fries',
@@ -294,14 +290,14 @@ const mockCustomers = [
   },
   {
     name: 'test',
-    email: 'test@test',
+    email: 'test@test.com',
     password: 'password',
     passwordConfirm: 'password',
     role: Role.USER,
   },
   {
     name: 'testAdmin',
-    email: 'testAdmin@test',
+    email: 'testAdmin@test.com',
     password: 'password',
     passwordConfirm: 'password',
     role: Role.ADMIN,
@@ -376,8 +372,15 @@ async function main() {
 
   //seed all the customers
   for (const customer of mockCustomers) {
-    const authService = new AuthService(prismaService, jwtService);
-    await authService.register(customer);
+    const hashedPassword = bcrypt.hashSync(customer.password, 10);
+    await prisma.customer.create({
+      data: {
+        name: customer.name,
+        email: customer.email,
+        password: hashedPassword,
+        role: customer.role,
+      },
+    });
   }
 
   // Seed orders and order items
