@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -9,6 +9,12 @@ export class CategoriesService {
   private readonly logger = new Logger(CategoriesService.name);
 
   async create(createCategoryDto: CreateCategoryDto) {
+    const exists = await this.prisma.category.findFirst({
+      where: { name: createCategoryDto.name },
+    });
+    if (exists) {
+      throw new HttpException('Category already exists', 400);
+    }
     this.logger.log('Creating category: ' + JSON.stringify(createCategoryDto));
     try {
       return await this.prisma.category.create({ data: createCategoryDto });

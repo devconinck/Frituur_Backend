@@ -1,5 +1,5 @@
 module.exports = {
-  port: 9000,
+  port: 8080,
 
   cors: {
     origins: ['http://localhost:3000'],
