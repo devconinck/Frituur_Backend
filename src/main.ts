@@ -24,7 +24,10 @@ async function bootstrap() {
   const port = configuration.get('port');
 
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: [
+      'https://2324-frontendweb-quinten-deconinck.vercel.app',
+      'http://localhost:3000',
+    ],
   });
   await app.listen(port);
 }
