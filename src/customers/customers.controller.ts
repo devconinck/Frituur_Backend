@@ -4,7 +4,6 @@ import {
   Post,
   Body,
   Param,
-  Delete,
   ParseIntPipe,
   Put,
   UseGuards,
@@ -53,8 +52,7 @@ export class CustomersController {
   }
 
   @Put(':id')
-  @UseGuards(AuthGuard, RolesGuard)
-  @Roles(Role.Admin)
+  @UseGuards(AuthGuard)
   @ApiOkResponse({ type: CustomerEntity })
   async update(
     @Param('id', ParseIntPipe) id: string,

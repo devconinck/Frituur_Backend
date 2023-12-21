@@ -66,12 +66,7 @@ const productsData = [
     category: 'Drinks',
     url: 'ice_tea_peach.png',
   },
-  {
-    name: 'Ice Tea Zero',
-    price: 2.2,
-    category: 'Drinks',
-    url: 'ice_tea_zero.png',
-  },
+
   {
     name: 'Mini Friet',
     price: 2.8,

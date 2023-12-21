@@ -25,15 +25,12 @@ export class CreateProductDto {
   description?: string;
 
   @ApiProperty({ default: null })
-  @IsInt()
   @IsNotEmpty()
   price: Decimal;
 
   @ApiProperty()
   @IsOptional()
   @IsString()
-  @MinLength(5)
-  @MaxLength(50)
   url?: string;
 
   @ApiProperty()
