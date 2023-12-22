@@ -1,10 +1,10 @@
 # Quinten Deconinck (202293145)
 
 - [x] Front-end Web Development
-  - <https://github.com/Web-IV/2324-webservices-QuintenDeconinck>
+  - <https://github.com/Web-IV/2324-frontendweb-QuintenDeconinck>
   - <https://2324-frontendweb-quinten-deconinck.vercel.app/>
 - [x] Web Services:
-  - <https://github.com/Web-IV/2324-frontendweb-QuintenDeconinck>
+  - <https://github.com/Web-IV/2324-webservices-QuintenDeconinck>
   - <https://frituurdaa-api.onrender.com>
 
 **Logingegevens**

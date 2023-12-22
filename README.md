@@ -17,7 +17,8 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 ```javascript
 DATABASE_URL =
-  'mysql://llenchsp5ii229orb71j:pscale_pw_b7VpYdnAGVSraZwabnXxkqz2ObrQvTHtzgDY0nHvoG9@aws.connect.psdb.cloud/frituur?sslaccept=strict';
+  'mysql://p0way0xzn9mudc5aps1i:pscale_pw_uLEY4H1pXqSUdsmrDxm0YXNRdoXvMKhg0j439NMB39O@aws.connect.psdb.cloud/frituur?sslaccept=strict';
+
 JWT_SECRET = 'someSuperRandomSecretKeyThatIThinkIsSafeButMaybeNotSoMuch';
 JWT_EXPIRES = '1200s';
 ```
