@@ -15,12 +15,10 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 ### Create a .env file with the following content:
 
-```javascript
-DATABASE_URL =
-  'mysql://p0way0xzn9mudc5aps1i:pscale_pw_uLEY4H1pXqSUdsmrDxm0YXNRdoXvMKhg0j439NMB39O@aws.connect.psdb.cloud/frituur?sslaccept=strict';
-
-JWT_SECRET = 'someSuperRandomSecretKeyThatIThinkIsSafeButMaybeNotSoMuch';
-JWT_EXPIRES = '1200s';
+```bash
+DATABASE_URL='mysql://p0way0xzn9mudc5aps1i:pscale_pw_uLEY4H1pXqSUdsmrDxm0YXNRdoXvMKhg0j439NMB39O@aws.connect.psdb.cloud/frituur?sslaccept=strict'
+JWT_SECRET='someSuperRandomSecretKeyThatIThinkIsSafeButMaybeNotSoMuch'
+JWT_EXPIRES='1200s'
 ```
 
 ### Install all dependencies using the following command:
