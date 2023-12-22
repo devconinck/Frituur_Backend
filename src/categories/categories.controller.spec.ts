@@ -25,12 +25,6 @@ describe('CategoriesController', () => {
     expect(result.length).toBeGreaterThan(0);
   });
 
-  it('should return a category', async () => {
-    const result = await controller.findOne('1');
-    expect(result).toBeDefined();
-    expect(result.name).toBe('Drinks');
-  });
-
   it('should create a category', async () => {
     const result = await controller.create({
       name: 'Test Category',

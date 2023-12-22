@@ -6,7 +6,6 @@ import {
   Param,
   ParseIntPipe,
   UseGuards,
-  Req,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';

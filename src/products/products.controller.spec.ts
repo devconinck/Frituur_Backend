@@ -34,11 +34,6 @@ describe('ProductsController', () => {
     expect(products.length).toBeGreaterThan(0);
   });
 
-  it('should find one product', async () => {
-    const product = await controller.findOne('1');
-    expect(product).toHaveProperty('id');
-  });
-
   it('should update a product', async () => {
     const product = await controller.update(1, {
       name: 'Test Product',

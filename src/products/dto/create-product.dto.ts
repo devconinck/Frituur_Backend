@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Decimal } from '@prisma/client/runtime/library';
 import {
   IsDate,
-  IsInt,
   IsNotEmpty,
   IsNumber,
   IsOptional,

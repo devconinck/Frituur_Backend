@@ -23,6 +23,7 @@ import { Role } from 'src/auth/role.enum';
 
 @Controller('categories')
 @ApiTags('categories')
+@ApiBearerAuth()
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
@@ -30,7 +31,6 @@ export class CategoriesController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.Admin)
   @ApiCreatedResponse({ type: CategoryEntity })
-  @ApiBearerAuth()
   async create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.create(createCategoryDto);
   }
@@ -40,13 +40,6 @@ export class CategoriesController {
   @ApiOkResponse({ type: CategoryEntity, isArray: true })
   async findAll() {
     return this.categoriesService.findAll();
-  }
-
-  @Get(':id')
-  @UseGuards(AuthGuard)
-  @ApiOkResponse({ type: CategoryEntity })
-  async findOne(@Param('id') id: string) {
-    return this.categoriesService.findOne(+id);
   }
 
   @Delete(':id')

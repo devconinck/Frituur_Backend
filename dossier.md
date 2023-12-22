@@ -1,92 +1,102 @@
 # Quinten Deconinck (202293145)
 
-> Duid aan welke vakken je volgt en vermeld voor deze vakken de link naar jouw GitHub repository. In het geval je slechts één vak volgt, verwijder alle inhoud omtrent het andere vak uit dit document.
-> Lees <https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet> om te weten hoe een Markdown-bestand opgemaakt moet worden.
-> Verwijder alle instructies (lijnen die starten met >).
-
 - [x] Front-end Web Development
   - <https://github.com/Web-IV/2324-webservices-QuintenDeconinck>
-  - <LINK_ONLINE_VERSIE_HIER>
+  - <https://2324-frontendweb-quinten-deconinck.vercel.app/>
 - [x] Web Services:
   - <https://github.com/Web-IV/2324-frontendweb-QuintenDeconinck>
-  - <LINK_ONLINE_VERSIE_HIER>
+  - <https://frituurdaa-api.onrender.com>
 
 **Logingegevens**
 
-- Gebruikersnaam/e-mailadres:
-- Wachtwoord:
+```javascript
+//User
+email: user@email.com
+password: password
 
-> Vul eventueel aan met extra accounts voor administrators of andere rollen.
-> Voor Admin:
+//Admin
+email: admin@email.com
+password: password
 
-- Gebruikersnaam/e-mailadres:
-- Wachtwoord:
+//Admin
+email: quinten@email.com
+password: StrongPassword
+
+```
 
 ## Projectbeschrijving
 
-> Omschrijf hier duidelijk waarover jouw project gaat. Voeg een domeinmodel (of EERD) toe om jouw entiteiten te verduidelijken.
-
-Het project is een website voor een lokaal frituur (Frituur d'Aa) om klanten de mogelijkheid te geven online te bestellen. Verder is er ook een admin panel zodat de eigenaar producten/categorieën kan toevoegen/aanpassen/verwijderen en bestellingen kan bekijken. De gebruiker kan dus aanmelden en vanaf dan heeft deze de mogelijkheid om bestellingen te plaatsen en zijn eigen eerdere bestellingen te bekijken.
+Het project is een website voor een lokaal frituur (Frituur d'Aa) om klanten de mogelijkheid te geven online te bestellen. Verder is er ook een admin panel zodat de eigenaar producten/categorieën kan toevoegen/aanpassen/verwijderen en bestellingen kan bekijken. De gebruiker kan dus aanmelden en vanaf dan heeft deze de mogelijkheid om bestellingen te plaatsen en zijn eerder geplaatste bestellingen te bekijken.
 
 Hieronder een afbeelding van het EERD van de databank:
 
-![EERD](./eerd.png)
+![EERD](https://github.com/QuintenDeconinck/Images/raw/main/eerd.png)
 
 ## Screenshots
 
-> Voeg enkele (nuttige!) screenshots toe die tonen wat de app doet.
+Dit is de Home pagina ("/") die bovenaan het volgende toont:
 
-Hier de Homepage met volgende items: NavBar met links naar Homepage, Order page en Contact page, profile button die bestaat uit <Link> items naar Orders page (overzicht van bestelgeschiedenis), Customer Card page (waar er een klantenkaart komt die punten bevat en waarmee de klant dan korting krijgt/een gratis vleesje kan bestellen), Account page (waar gebruiker zijn naam, geboortedatum, voorkeurstaal... kan aanpassen) en Logout button.
+- de pagina met contactgegevens ("/contact") (deze heb ik niet echt geïmplementeerd)
+- de bestelpagina ("/order") waar de klant zijn bestelling kan plaatsen
+- de dark/light mode toggle
+- de login knop ("/login") als de gebruiker niet ingelogd is, anders toont deze een avatar die een submenu toont met links naar de account pagina's ("/account")
+  ![HOME](https://github.com/QuintenDeconinck/Images/raw/main/home.png)
 
-Hier de Order page die een lijst toont met alle categorieën die de user kan gebruiken om te filteren. Een lijst met alle producten die de gebruiker aan zijn shopping cart kan toevoegen. Rechts de shopping cart die de totale prijs toont en de gebruiker toelaat zijn order te bekijken en nog aan te passen alvorens de Checkout knop te gebruiken om naar de betaling te gaan.
+Hier de Order page die een lijst toont met alle categorieën die de user kan gebruiken om te filteren. Een lijst met alle producten die de gebruiker aan zijn shopping cart kan toevoegen. Rechts de shopping cart die de totale prijs toont en de gebruiker toelaat zijn order te bekijken en nog aan te passen alvorens de Checkout knop te gebruiken om naar de checkout pagina te gaan ("/checkout") (er is uiteraard geen betalingssysteem geïmplementeerd dus we gaan er vanuit dat de betaling slaagt).
 
-Hier het admin dashboard: de admin kan alle producten bekijken en hier ook producten wijzigen/toevoegen/verwijderen. De admin kan ook een categorie toevoegen of verwijderen en kan onder "Orders" alle orders bekijken die geplaatst zijn door klanten.
+![ORDER](https://github.com/QuintenDeconinck/Images/raw/main/order.png)
+![CHECKOUT](https://github.com/QuintenDeconinck/Images/raw/main/checkout_id.png)
+
+Dit zijn de verschillende paginas in het admin dashboard ("/admin"):
+
+- de producten pagina ("/admin/products") waar de admin producten kan toevoegen/aanpassen/verwijderen
+- de categorieën pagina ("/admin/categories") waar de admin categorieën kan toevoegen/verwijderen
+- de bestellingen pagina ("/admin/orders") waar de admin alle bestellingen kan bekijken
+
+![ADMIN/PRODUCTS](https://github.com/QuintenDeconinck/Images/raw/main/admin_products.png)
+![ADMIN/PRODUCTS](https://github.com/QuintenDeconinck/Images/raw/main/admin_categories.png)
+![ADMIN/PRODUCTS](https://github.com/QuintenDeconinck/Images/raw/main/admin_orders.png)
 
 ## API calls
 
-> Maak hier een oplijsting van alle API cals in jouw applicatie. Groepeer dit per entiteit. Hieronder een voorbeeld.
-> Dit is weinig zinvol indien je enkel Front-end Web Development volgt, verwijder dan deze sectie.
-> Indien je als extra Swagger koos, dan voeg je hier een link toe naar jouw online documentatie. Swagger geeft nl. exact (en nog veel meer) wat je hieronder moet schrijven.
+Swagger: https://frituurdaa-api.onrender.com/api
 
-Swagger: `localhost:8080/api`
-
+```Javascript
 ### Customers
 
-- `GET /api/customers/:id`: customer met een bepaald id ophalen
-- `POST /api/customers`: een nieuwe customer toevoegen
-- `PUT /api/customers/:id`: een customer met een bepaald id updaten
+- `PUT /customers/:id`: een customer met een bepaald id updaten
 
 ### Categories
 
-- `GET /api/categories`: alle categorieën ophalen
-- `POST /api/categories`: een nieuwe categorie toevoegen
-- `DELETE /api/categories/:id`: een categorie met een bepaalde ID verwijderen
+- `GET /categories`: alle categorieën ophalen
+- `POST /categories`: een nieuwe categorie toevoegen
+- `DELETE /categories/:id`: een categorie met een bepaalde id verwijderen
 
 ### Products
 
-- `GET /api/products`: alle producten ophalen
-- `POST /api/products`: een nieuw product toevoegen
-- `PUT /api/products/:id`: een product met een bepaalde ID updaten
-- `DELETE /api/products/:id`: een product met een bepaalde ID verwijderen
+- `GET /products`: alle producten ophalen
+- `POST /products`: een nieuw product toevoegen
+- `PUT /products/:id`: een product met een bepaalde id updaten
+- `DELETE /products/:id`: een product met een bepaalde id verwijderen
 
 ### OrderItems
 
-- `POST /api/order-items`: nieuwe order items toevoegen
+- `POST /order-items`: nieuwe order items toevoegen
 
 ### Orders
 
-- `GET /api/orders`: alle orders ophalen
-- `GET /api/orders/user/:id`: alle orders voor een bepaalde gebruiker ophalen
-- `GET /api/orders/:id`: een order met een bepaalde ID ophalen
+- `GET /orders`: alle orders ophalen
+- `GET /orders/user/:id`: alle orders voor een bepaalde gebruiker ophalen
+- `GET /orders/:id`: een order met een bepaalde id ophalen
+- `POST /orders`: een nieuwe order toevoegen
 
 ### Auth
 
-- `POST /api/login`: inloggen
-- `POST /api/register`: registreren
+- `POST /login`: inloggen
+- `POST /register`: registreren
+```
 
 ## Behaalde minimumvereisten
-
-> Duid per vak aan welke minimumvereisten je denkt behaald te hebben
 
 ### Front-end Web Development
 
@@ -94,7 +104,7 @@ Swagger: `localhost:8080/api`
 
   - [x] heeft meerdere componenten - dom & slim (naast login/register)
   - [x] applicatie is voldoende complex
-  - [ ] definieert constanten (variabelen, functies en componenten) buiten de component
+  - [x] definieert constanten (variabelen, functies en componenten) buiten de component
   - [x] minstens één form met meerdere velden met validatie (naast login/register)
   - [x] login systeem
         <br />
@@ -108,23 +118,23 @@ Swagger: `localhost:8080/api`
 - **state-management**
 
   - [x] meerdere API calls (naast login/register)
-  - [ ] degelijke foutmeldingen indien API-call faalt
-  - [ ] gebruikt useState enkel voor lokale state
-  - [ ] gebruikt gepast state management voor globale state - indien van toepassing
+  - [x] degelijke foutmeldingen indien API-call faalt
+  - [x] gebruikt useState enkel voor lokale state
+  - [x] gebruikt gepast state management voor globale state - indien van toepassing
         <br />
 
 - **hooks**
 
-  - [ ] gebruikt de hooks op de juiste manier
+  - [x] gebruikt de hooks op de juiste manier
         <br />
 
 - **varia**
 
-  - [ ] een aantal niet-triviale e2e testen
+  - [x] een aantal niet-triviale e2e testen
   - [x] minstens één extra technologie
   - [x] maakt gebruik van de laatste ES-features (async/await, object destructuring, spread operator...)
-  - [ ] duidelijke en volledige README.md
-  - [ ] volledig en tijdig ingediend dossier en voldoende commits
+  - [x] duidelijke en volledige README.md
+  - [x] volledig en tijdig ingediend dossier en voldoende commits
 
 ### Web Services
 
@@ -164,14 +174,12 @@ Swagger: `localhost:8080/api`
   - [x] een aantal niet-triviale integratietesten (min. 1 controller >=80% coverage)
   - [x] minstens één extra technologie
   - [x] maakt gebruik van de laatste ES-features (async/await, object destructuring, spread operator...)
-  - [ ] duidelijke en volledige README.md
-  - [ ] volledig en tijdig ingediend dossier en voldoende commits
+  - [x] duidelijke en volledige README.md
+  - [x] volledig en tijdig ingediend dossier en voldoende commits
 
 ## Projectstructuur
 
 ### Front-end Web Development
-
-> Hoe heb je jouw applicatie gestructureerd (mappen, design patterns, hiërarchie van componenten, state...)?
 
 Ik heb gebruik gemaakt van de T3 stack dus zij maken een mappenstructuur aan wanneer het project geinitialiseerd wordt. De T3 stack bestaat uit NextJs, Typescript, Tailwindcss, Prisma en tRPC. Aangezien we werken met een aparte REST API heb ik de mappen van Prisma en tRPC verwijderd.
 De mappen zijn als volgt gestructureerd:
@@ -193,11 +201,8 @@ De mappen zijn als volgt gestructureerd:
     - index : file voor de / pagina
   - styles : bevat de global styles voor het project, gegenereerd door Shadcn voor darkmode/lightmode
   - types.ts : Typescript file die verschillende types bevat die ik hergebruik doorheen het project
-  - hooks.ts : Typescript file die verschillende hooks bevat die ik hergebruik doorheen het project
 
 ### Web Services
-
-> Hoe heb je jouw applicatie gestructureerd (mappen, design patterns...)?
 
 Ik heb gebruik gemaakt van NestJs dus heb ik hun mappenstructuur gebruikt: door de CLI te gebruiken kan je voor elke entiteit een map genereren die een service, controller, dto en entity bevat. Verder maakt NestJs ook automatisch test files aan voor elke entiteit. De mappen zijn als volgt gestructureerd:
 
@@ -218,8 +223,6 @@ Ik heb gebruik gemaakt van NestJs dus heb ik hun mappenstructuur gebruikt: door 
 
 ### Front-end Web Development
 
-> Wat is de extra technologie? Hoe werkt het? Voeg een link naar het npm package toe!
-
 - #### T3 Stack:
 
   - Ik heb gebruik gemaakt van de T3 stack en het bijbehorende create-t3-app om mijn project te initialiseren. De T3 stack bestaat uit NextJs, Typescript, Tailwindcss, tRPC en dan de keuze tussen Prisma en Drizzle en eventueel NextAuth. Aangezien we een aparte REST API hebben heb ik Prisma, tRPC en NextAuth niet gebruikt en deze dus verwijderd uit mijn project na initialisatie. https://create.t3.gg / https://www.npmjs.com/package/create-t3-app
@@ -238,14 +241,12 @@ Ik heb gebruik gemaakt van NestJs dus heb ik hun mappenstructuur gebruikt: door 
 
 - #### Tanstack Query:
 
-  Ik heb een deel van mijn applicatie ook herschreven om gebruik te maken van Tanstack Query in plaats van SWR. Tanstack Query of het vroegere react-query maakt gebruik van keys om mutations en queries te cachen en op basis daarvan ook te refetchen. https://www.npmjs.com/package/@tanstack/react-query
+  Ik heb gebruik gemaakt van Tanstack Query in plaats van SWR. Tanstack Query of het vroegere react-query maakt gebruik van keys om mutations en queries te cachen en op basis daarvan ook te refetchen. https://www.npmjs.com/package/@tanstack/react-query
 
 - #### ShadcnUI:
-  ShadcnUI is een relatief nieuwe UI collectie, geen library. Dit wil zeggen dat je via de command line enkel de componenten installeert die je echt gaat gebruiken en kan deze dan callen in het project bv. <Button> in plaats van een gewone <button> en hierbij kan je dan verschillende presets kiezen. Dit is geen component library dus er is geen package beschikbaar maar hier is de website: https://ui.shadcn.com
+  ShadcnUI is een relatief nieuwe UI collectie, geen library. Dit wil zeggen dat je via de command line enkel de componenten installeert die je echt gaat gebruiken en kan deze dan callen in het project bv. een `Button` component ipv de native `button` component van HTML in plaats van een gewone en hierbij kan je dan verschillende presets kiezen. Dit is geen component library dus er is geen package beschikbaar maar hier is de website: https://ui.shadcn.com
 
 ### Web Services
-
-> Wat is de extra technologie? Hoe werkt het? Voeg een link naar het npm package toe!
 
 - #### NestJs:
 
@@ -270,25 +271,33 @@ Ik heb gebruik gemaakt van NestJs dus heb ik hun mappenstructuur gebruikt: door 
 
 ### Front-end Web Development
 
-> Schrijf hier een korte oplijsting en beschrijving van de geschreven testen
+Zoals je op de foto hieronder kan zien heb ik testen geschreven voor de volgende pagina's:
+
+- /login : zowel gefaalde als correcte logins
+- /register : zowel gefaalde als correcte registraties
+- /order : order maken en alle functionaliteiten van de pagina uitproberen
+- /admin/products : producten toevoegen en weer verwijderen
+- /admin/categories : categorieën toevoegen en weer verwijderen
+
+![testen](https://github.com/QuintenDeconinck/Images/raw/main/testing.png)
 
 ### Web Services
 
-Elke file die door NestJs is aangemaakt is getest. Dit wil zeggen elke .controller.ts en .service.ts file heeft een equivalente .controller.spec.ts en .service.spec.ts file die testen definieert. Alle testen slagen, het is alleen spijtig dat dit niet werkt wanneer ik de AuthGuard en RolesGuard toevoeg aan de endpoints. De authenticatie zelf en de AuthGuard en RolesGuard zelf werken wel en wanneer ik ze manueel test in Swagger werkt alles naar behoren. Het was alleen niet mogelijk om de authenticatie te mocken in NestJs en daarom heb ik een aparte branch gemaakt die de authenticatie niet toepast op de endpoints. De authenticatie zelf wordt wel getest en werkt zoals gezegd naar behoren. De testen zijn geschreven met Jest en maken gebruik van de NestJs testing module.
+Elke file die door NestJs is aangemaakt is getest. Dit wil zeggen elke .controller.ts en .service.ts file heeft een equivalente .controller.spec.ts en .service.spec.ts file die testen definieert. Alle testen slagen, het is alleen spijtig dat dit niet werkt wanneer ik de AuthGuard en RolesGuard toevoeg aan de endpoints. Het is me niet gelukt om deze te mocken binnen NestJs, daarom moet er dus naar de `test` branch geswitched worden om de testen te runnen.
 
-![coverage](https://github.com/QuintenDeconinck/Images/raw/main/Screenshot%202023-12-19%20134621.png)
-![coverage](https://github.com/QuintenDeconinck/Images/raw/main/Screenshot%202023-12-19%20134636.png)
+Dit is uiteraard erg spijtig, maar na veel opzoekwerk heb ik besloten om de testen te runnen zonder de protectie van de guards. Ik heb alles van authenticatie en role based protection manueel Swagger getest en alles werkt perfect. Ik heb ook de coverage van de testen hieronder toegevoegd:
+
+![coverage](https://github.com/QuintenDeconinck/Images/raw/main/coverage_1.png)
+![coverage](https://github.com/QuintenDeconinck/Images/raw/main/coverage_2.png)
 
 ## Gekende bugs
 
 ### Front-end Web Development
 
-> Zijn er gekende bugs?
+Voor zover ik weet zijn er geen gekende bugs.
 
 ### Web Services
 
-> Zijn er gekende bugs?
+- Het lukt niet om de api te testen wanneer de Authenticatie Guards worden toegepast. Daarom is er een "test" branch die gewoon de useGuards(AuthGuard en RolesGuard) weglaat en de api dus test zonder de authentication header en zonder te checken of de gebruiker admin is of gewoon user. Ik heb manueel op Swagger al mijn endpoints getest met de useGuards(AuthGuard, RolesGuard) en alls werkt perfect, het probleem ligt dus bij het mocken in de test scenarios. Ik heb erg lang liggen proberen om de authenticatie te kunnen mocken maar dit bleek niet mogelijk.
 
-- Het lukt niet om de api te testen wanneer de Authenticatie Guards worden toegepast. Daarom is er een "testing" branch die gewoon de useGuards(AuthGuard) weglaat en de api dus test zonder de authentication header. Ik heb manueel op Swagger al mijn endpoints getest met de useGuards(AuthGuard, RolesGuard) en alls werkt perfect, het probleem ligt dus bij het mocken in de test scenarios. Ik heb erg lang liggen proberen om de authenticatie te kunnen mocken maar dit bleek moeilijker dan gedacht in NestJs.
-
-- voor de testen wordt gebruik gemaakt van dezelfde databank als de online applicatie draait. In Prisma is het blijkbaar momenteel niet mogelijk om een aparte databank te gebruiken voor testen. Ik heb dit opgelost door de testen te laten runnen op een aparte branch die de databank seed, de testen runt en dan de databank opnieuw seed. Dit is natuurlijk niet ideaal maar ik heb geen andere oplossing gevonden en ik heb er dan ook voor gezorgd dat de seed file voldoende data bevat zodat het verschil eigenlijk niet zo groot is.
+- Voor de testen wordt gebruik gemaakt van dezelfde databank als de online applicatie draait. In Prisma is het blijkbaar momenteel niet mogelijk om een aparte databank te gebruiken voor testen. Ik heb dit opgelost door de testen te laten runnen op een aparte branch die de databank seed, de testen runt en dan de databank opnieuw seed. Dit is natuurlijk niet ideaal maar ik heb geen andere oplossing gevonden en ik heb er dan ook voor gezorgd dat de seed file voldoende data bevat zodat het verschil eigenlijk niet zo groot is.

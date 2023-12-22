@@ -45,13 +45,6 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
-  @Get(':id')
-  @UseGuards(AuthGuard)
-  @ApiOkResponse({ type: ProductEntity })
-  async findOne(@Param('id', ParseIntPipe) id: string) {
-    return this.productsService.findOne(+id);
-  }
-
   @Put(':id')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.Admin)
